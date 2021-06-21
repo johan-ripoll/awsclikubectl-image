@@ -2,6 +2,7 @@ FROM alpine:3.13
 
 ENV GLIBC_VER=2.31-r0
 
+RUN apk --no-cache add curl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN chmod u+x kubectl && mv kubectl /bin/kubectl
 
@@ -30,3 +31,5 @@ RUN apk --no-cache add \
     && rm glibc-${GLIBC_VER}.apk \
     && rm glibc-bin-${GLIBC_VER}.apk \
     && rm -rf /var/cache/apk/*
+
+CMD ["tail", "-f", "/dev/null"]

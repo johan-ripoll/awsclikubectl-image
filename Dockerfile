@@ -2,7 +2,7 @@ FROM alpine:3.13
 
 ENV GLIBC_VER=2.31-r0
 
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN chmod u+x kubectl && mv kubectl /bin/kubectl
 
 # install glibc compatibility for alpine

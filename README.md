@@ -1,0 +1,2 @@
+# awsclikubectl-image
+Docker image

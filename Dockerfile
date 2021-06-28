@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine
 
 ENV GLIBC_VER=2.31-r0
 
@@ -6,8 +6,10 @@ RUN apk --no-cache add curl
 RUN apk --no-cache add tar
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN chmod u+x kubectl && mv kubectl /bin/kubectl
-RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-RUN chmod u+x /tmp/eksctl && mv /tmp/eksctl /bin/eksctl
+RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar -zxv
+RUN chmod u+x eksctl && mv eksctl /bin/eksctl
+# Install eksctl (latest version)
+
 
 # install glibc compatibility for alpine
 RUN apk --no-cache add \
@@ -30,7 +32,7 @@ RUN apk --no-cache add \
         /usr/local/aws-cli/v2/*/dist/awscli/examples \
     && apk --no-cache del \
         binutils \
-        curl \
+        #curl \
     && rm glibc-${GLIBC_VER}.apk \
     && rm glibc-bin-${GLIBC_VER}.apk \
     && rm -rf /var/cache/apk/*

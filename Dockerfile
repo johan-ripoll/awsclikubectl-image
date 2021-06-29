@@ -8,6 +8,7 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN chmod u+x kubectl && mv kubectl /bin/kubectl
 RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar -zxv
 RUN chmod u+x eksctl && mv eksctl /bin/eksctl
+RUN apk add --no-cache bash git openssh
 
 # install glibc compatibility for alpine
 RUN apk --no-cache add \
